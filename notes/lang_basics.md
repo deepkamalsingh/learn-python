@@ -187,15 +187,13 @@ difference = set_a - set_b    # {1, 2}
 # python builtin-methods
 
 ## any/all
-```
-any(iterable) - Short-circuits on the first True.
-all(iterable) - Short-circuits on the first False.
-```
+- `any(iterable)` - Short-circuits on the first True.
+- `all(iterable)` - Short-circuits on the first False.
+
 
 ## Truthiness
-```
-empty structures ([], {}, set(), "", 0, None) are logically False
-```
+empty structures `([], {}, set(), "", 0, None)` are logically False
+
 
 ## enumerate
 ```python
@@ -221,7 +219,7 @@ created an iterator (is memory efficient) which reverse travels the list instead
 - Use `divmod(a, b)` to get `quotient`, `remainder` as it does a single division at C level.
 - `sum(iterable)` highly optimized for numerical elements, to add string use `"".join(iterable)`.
 - `pow(base, exp, mod=None)` alot faster than `base ** exp`.
-- `a // b` does the floow division.
+- `a // b` does the floor division.
 
 ## sorting
 - `sorted(iterable, key=None, reverse=False)` returns a iterable.
