@@ -87,20 +87,7 @@ z = min(myInf, 1)
 print(z, myInf, type(z), type(myInf)) # 1 inf <class 'int'> <class 'float'>
 ```
 
-## division and modulus
-```python
-a = 10
-b = 3
 
-# Floor Division (//)
-result_floor = a // b  # 3
-
-# True Division (Normal /)
-result_true = a / b    # 3.3333333333333335
-
-# Modulus (%)
-result_mod = a % b     # 1
-```
 
 ## itertools
 ```python
@@ -234,6 +221,7 @@ created an iterator (is memory efficient) which reverse travels the list instead
 - Use `divmod(a, b)` to get `quotient`, `remainder` as it does a single division at C level.
 - `sum(iterable)` highly optimized for numerical elements, to add string use `"".join(iterable)`.
 - `pow(base, exp, mod=None)` alot faster than `base ** exp`.
+- `a // b` does the floow division.
 
 ## sorting
 - `sorted(iterable, key=None, reverse=False)` returns a iterable.
