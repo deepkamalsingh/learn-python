@@ -117,11 +117,74 @@ print(perms) # [(1, 2), (1, 1), (1, 2), (2, 1), (2, 1), (2, 2), (1, 1), (1, 2), 
 print(combs) # [(1, 2), (1, 1), (1, 2), (2, 1), (2, 2), (1, 2)]
 ```
 
-## slicing
-```python
-s = "asbakagd"
-rev = s[::-1] # reverses the string
-```
+## slicing and string manipulation
+- how slicing `sequence[start:stop:step]` works
+    - Mental model: think of indices as pointing to the boundaries (the "slots") between characters.
+    -   ```
+           P   Y   T   H   O   N
+         |   |   |   |   |   |   |
+         0   1   2   3   4   5   6   (Positive)
+        -6  -5  -4  -3  -2  -1       (Negative)
+         ^           ^
+        Start       Stop
+
+        s[:-3] = s[0:-3:1] = so start at 0 and stop at -3 hence the output is "PYT"
+
+       
+
+
+        s[::-1] = s[6:0:-1] = "NOHTYP"
+
+        s = "BENGALURU" # len(9)
+           B   E   N   G   A   L   U   R   U
+         |   |   |   |   |   |   |   |   |   |
+         0   1   2   3   4   5   6   7   8   9     
+        -9  -8  -7  -6  -5  -4  -3  -2  -1       
+        s[-3:] # "URU"
+        s[2:-2] # "NGALU"
+        s[::-2] # "UUANB"
+        s[5:2:-1] # "LAG"
+        s[1:5:-1] # empty string as it is a conflict.
+        s[100] # gives index error
+        s[0:100] # gracefully handled and gives the complete string.
+        s[100:200] # gracefully handled and gives empty string.
+
+        ```
+
+- ```python
+    s = "abcdefghijklmnopqrst"
+    print(len(s)) # 20
+    # reversing the string
+    print(s[::-1]) # tsrqponmlkjihgfedcba
+    # slicing
+    print(s[4:20:2]) # egikmoqs
+    # reverse slicing
+    print(s[4::-2]) # eca
+    # -ve indexing
+    print(s[-20]) # a
+    # print(s[-21]) # IndexError: string index out of range
+    # rotating the array
+    print(s[5:] + s[:5]) # fghijklmnopqrstabcde
+    # last 3 elements
+    print(s[-3:]) # rst
+    # removing last three elements
+    print(s[:-3]) # abcdefghijklmnopq
+
+
+    chars = ['h', 'e', 'l', 'l', 'o']
+    # O(n^2)
+    s1 = ""
+    for c in chars:
+        s1 += c
+    print(s1) # 'hello'
+    # O(n)
+    s2 = "".join(chars) 
+    print(s2) # 'hello'
+
+
+    first, *middle, last = [1, 2, 3, 4, 5]
+    # first = 1, middle = [2, 3, 4], last = 5
+    ```
 
 ## set operations
 ```python
@@ -134,5 +197,187 @@ difference = set_a - set_b    # {1, 2}
 ```
 
 
+# python builtin-methods
 
+## any/all
+```
+any(iterable) - Short-circuits on the first True.
+all(iterable) - Short-circuits on the first False.
+```
 
+## Truthiness
+```
+empty structures ([], {}, set(), "", 0, None) are logically False
+```
+
+## enumerate
+```python
+for idx, val in enumerate(arr):
+    if val == target:
+        return idx
+```
+
+## zip
+`zip(*iterables)` Aggregates elements from each of the iterables into tuples. It stops at the shortest iterable.
+```python
+for name, val in zip(names, vals):
+    print(f"{name}: {val}")
+
+matrix = [[1, 2], [3, 4], [5, 6]]
+transposed = list(zip(*matrix)) # [(1, 3, 5), (2, 4, 6)]
+```
+
+## reversed
+created an iterator (is memory efficient) which reverse travels the list instead of `list.reverse()` which is in-place and `arr[::-1]` which creates a new copy.
+
+## maths
+- Use `divmod(a, b)` to get `quotient`, `remainder` as it does a single division at C level.
+- `sum(iterable)` highly optimized for numerical elements, to add string use `"".join(iterable)`.
+- `pow(base, exp, mod=None)` alot faster than `base ** exp`.
+
+## sorting
+- `sorted(iterable, key=None, reverse=False)` returns a iterable.
+
+# Misc
+
+## Modules imported by leetcode
+```
+--- Loaded Modules ---
+__future__
+__main__
+_abc
+_ast
+_bisect
+_bz2
+_codecs
+_collections
+_collections_abc
+_compression
+_datetime
+_decimal
+_distutils_hack
+_frozen_importlib
+_frozen_importlib_external
+_functools
+_heapq
+_imp
+_io
+_json
+_locale
+_lzma
+_opcode
+_operator
+_random
+_sha512
+_signal
+_sitebuiltins
+_sre
+_stat
+_statistics
+_string
+_thread
+_typing
+_uuid
+_warnings
+_weakref
+_weakrefset
+abc
+argparse
+array
+ast
+bisect
+builtins
+bz2
+codecs
+collections
+collections.abc
+contextlib
+copy
+copyreg
+dataclasses
+datetime
+decimal
+dis
+encodings
+encodings.aliases
+encodings.utf_8
+enum
+errno
+fnmatch
+fractions
+functools
+genericpath
+gettext
+heapq
+importlib
+importlib._bootstrap
+importlib._bootstrap_external
+importlib.machinery
+inspect
+io
+itertools
+json
+json.decoder
+json.encoder
+json.scanner
+keyword
+linecache
+locale
+lzma
+marshal
+math
+numbers
+opcode
+operator
+orjson
+orjson.orjson
+os
+os.path
+platform
+posix
+posixpath
+precompiled
+precompiled.__assert__
+precompiled.__deserializer__
+precompiled.__serializer__
+precompiled.__settings__
+precompiled.__utils__
+precompiled.listnode
+precompiled.nestedinteger
+precompiled.treenode
+pwd
+random
+re
+re._casefix
+re._compiler
+re._constants
+re._parser
+reprlib
+shutil
+site
+sitecustomize
+sortedcontainers
+sortedcontainers.sorteddict
+sortedcontainers.sortedlist
+sortedcontainers.sortedset
+stat
+statistics
+string
+sys
+textwrap
+time
+token
+tokenize
+traceback
+types
+typing
+typing.io
+typing.re
+ujson
+uuid
+warnings
+weakref
+zipimport
+zlib
+Total modules loaded: 136
+```
