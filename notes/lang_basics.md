@@ -102,6 +102,12 @@ perms = list(itertools.permutations(nums, 2))
 combs = list(itertools.combinations(nums, 2))
 print(perms) # [(1, 2), (1, 1), (1, 2), (2, 1), (2, 1), (2, 2), (1, 1), (1, 2), (1, 2), (2, 1), (2, 2), (2, 1)]
 print(combs) # [(1, 2), (1, 1), (1, 2), (2, 1), (2, 2), (1, 2)]
+
+grouped = itertools.chain([1,2,3], [4,5,6], [7,8,9])
+grouped2 = itertools.chain.from_iterable([[1,2,3], [4,5,6], [7,8,9]]) # concatenate lists.
+
+# itertools.groupby only group the consecutive same elements.
+# to do the grouping you can do `frozenset(dict(Counter(s)).items())`
 ```
 
 ## slicing and string manipulation
@@ -197,7 +203,7 @@ empty structures `([], {}, set(), "", 0, None)` are logically False
 
 ## enumerate
 ```python
-for idx, val in enumerate(arr):
+for idx, val in enumerate(arr,start=1):
     if val == target:
         return idx
 ```
@@ -225,6 +231,15 @@ created an iterator (is memory efficient) which reverse travels the list instead
 - `sorted(iterable, key=None, reverse=False)` returns a iterable.
 
 # Misc
+
+## common foot guns:
+
+### references
+```python
+a = b = c = []
+a.append(1)
+print(a, b, c) # [1] [1] [1]
+```
 
 ## Modules imported by leetcode
 ```
