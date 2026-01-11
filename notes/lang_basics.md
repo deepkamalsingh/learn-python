@@ -29,6 +29,11 @@ from collections import Counter
 
 c = Counter([1, 2, 3, 1, 2, 1])
 print(c.most_common(2))
+
+# operations similar to dict.
+c.items()
+c.values()
+c.keys()
 ```
 
 ## heapq
@@ -57,6 +62,8 @@ lists = [list_a, list_b, list_c]
 # usage: heapq.merge(*iterables, key=None, reverse=False)
 merged_iterator = heapq.merge(*lists)
 
+# find smallest 10 numbers from a list of numbers
+z = heapq.nsmallest(10, list_of_numbers)
 ```
 
 ## bisect
@@ -89,7 +96,7 @@ print(z, myInf, type(z), type(myInf)) # 1 inf <class 'int'> <class 'float'>
 
 
 
-## itertools
+## itertools and generators
 ```python
 import itertools
 
@@ -108,6 +115,21 @@ grouped2 = itertools.chain.from_iterable([[1,2,3], [4,5,6], [7,8,9]]) # concaten
 
 # itertools.groupby only group the consecutive same elements.
 # to do the grouping you can do `frozenset(dict(Counter(s)).items())`
+```
+
+```python
+# try to use generator expressions to save memory
+# bad code creates a whole list in memory.
+z = [i for i in range(n)]
+c = Counter(z)
+
+# good code, uses generator experssion.
+c = Counter(i for i in range(n)) 
+```
+
+```python
+# to do reverse iterations
+range(start, end - 1, -1) # [start, ..., end]
 ```
 
 ## slicing and string manipulation
@@ -226,6 +248,14 @@ created an iterator (is memory efficient) which reverse travels the list instead
 - `sum(iterable)` highly optimized for numerical elements, to add string use `"".join(iterable)`.
 - `pow(base, exp, mod=None)` alot faster than `base ** exp`.
 - `a // b` does the floor division.
+### but manupulation
+- Use `int.bit_length` to get the length of the number, useful to get most significant bit of an integer.
+- Check if $i$-th bit is set: `(n >> i) & 1`
+- Set $i$-th bit: `n | (1 << i)`
+- Clear $i$-th bit: `n & ~(1 << i)`
+- Toggle $i$-th bit: `n ^ (1 << i)`
+- Check if Power of 2: `n > 0 and (n & (n - 1) == 0)`
+- Get Least Significant Bit (LSB): `n & -n`
 
 ## sorting
 - `sorted(iterable, key=None, reverse=False)` returns a iterable.
@@ -239,6 +269,17 @@ created an iterator (is memory efficient) which reverse travels the list instead
 a = b = c = []
 a.append(1)
 print(a, b, c) # [1] [1] [1]
+```
+
+## string to int and similar type conversion
+```python
+s: int = ord('a') # works
+x: int = 'a' - 'z' # does not works
+c: char = chr(ord('a') + diff) # to add some diff to char
+
+char_digit = '5'
+int_digit = int(char_digit)
+print(int_digit) # Output: 5
 ```
 
 ## Modules imported by leetcode
