@@ -241,7 +241,7 @@ transposed = list(zip(*matrix)) # [(1, 3, 5), (2, 4, 6)]
 ```
 
 ## reversed
-created an iterator (is memory efficient) which reverse travels the list instead of `list.reverse()` which is in-place and `arr[::-1]` which creates a new copy.
+created an iterator (is memory efficient) (using `reversed`) which reverse travels the list instead of `list.reverse()` which is in-place and `arr[::-1]` which creates a new copy.
 
 ## maths
 - Use `divmod(a, b)` to get `quotient`, `remainder` as it does a single division at C level.
@@ -250,6 +250,7 @@ created an iterator (is memory efficient) which reverse travels the list instead
 - `a // b` does the floor division.
 ### but manupulation
 - Use `int.bit_length` to get the length of the number, useful to get most significant bit of an integer.
+- Use `int.bit_count` to get number of set bits.
 - Check if $i$-th bit is set: `(n >> i) & 1`
 - Set $i$-th bit: `n | (1 << i)`
 - Clear $i$-th bit: `n & ~(1 << i)`
@@ -261,6 +262,14 @@ created an iterator (is memory efficient) which reverse travels the list instead
 - `sorted(iterable, key=None, reverse=False)` returns a iterable.
 
 # Misc
+
+## Tips
+
+- Type Boundaries, Infer Internals. 
+    - You should almost always type hints for function arguments and return values.
+    - Cases where you should type variables:
+        - Empty Containers `users: list[str] = []` than `users = []`.
+        - `Optional` types `best_score: int | None = None` than `best_score = None`.
 
 ## common foot guns:
 
