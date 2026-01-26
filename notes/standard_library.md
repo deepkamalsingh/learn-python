@@ -97,6 +97,16 @@ print(z, myInf, type(z), type(myInf)) # 1 inf <class 'int'> <class 'float'>
 
 
 ## itertools and generators
+
+### chaining
+```python
+grouped = itertools.chain([1,2,3], [4,5,6], [7,8,9])
+grouped2 = itertools.chain.from_iterable([[1,2,3], [4,5,6], [7,8,9]]) # concatenate lists.
+# itertools.groupby only group the consecutive same elements.
+# to do the grouping you can do `frozenset(dict(Counter(s)).items())`
+```
+
+### permutations and combinations
 ```python
 import itertools
 
@@ -109,14 +119,9 @@ perms = list(itertools.permutations(nums, 2))
 combs = list(itertools.combinations(nums, 2))
 print(perms) # [(1, 2), (1, 1), (1, 2), (2, 1), (2, 1), (2, 2), (1, 1), (1, 2), (1, 2), (2, 1), (2, 2), (2, 1)]
 print(combs) # [(1, 2), (1, 1), (1, 2), (2, 1), (2, 2), (1, 2)]
-
-grouped = itertools.chain([1,2,3], [4,5,6], [7,8,9])
-grouped2 = itertools.chain.from_iterable([[1,2,3], [4,5,6], [7,8,9]]) # concatenate lists.
-
-# itertools.groupby only group the consecutive same elements.
-# to do the grouping you can do `frozenset(dict(Counter(s)).items())`
 ```
 
+### Generators to save memory
 ```python
 # try to use generator expressions to save memory
 # bad code creates a whole list in memory.
@@ -127,6 +132,15 @@ c = Counter(z)
 c = Counter(i for i in range(n)) 
 ```
 
+### slicing and iterators
+```python
+# doing nums[4:] will create a shallow copy so better to do itertools.islice(num, startOrNone, stopOrNone)
+def _fun(nums: Iterable[int]): ...
+_fun(nums[1:]) # wrong, create a copy
+_fun(itertools.islice(nums, 4, None))
+```
+
+### reverse iteration
 ```python
 # to do reverse iterations
 range(start, end - 1, -1) # [start, ..., end]
@@ -165,7 +179,7 @@ range(start, end - 1, -1) # [start, ..., end]
         s[100:200] # gracefully handled and gives empty string.
 
         ```
-
+    - slicing creates a shallow copy and not iterator. 
 - ```python
     s = "abcdefghijklmnopqrst"
     print(len(s)) # 20
@@ -211,6 +225,12 @@ union = set_a | set_b         # {1, 2, 3, 4, 5}
 difference = set_a - set_b    # {1, 2}
 ```
 
+## functools
+we can use `lru_cache` and do not worry about memoization.
+```python
+@lru_cache(maxsize=None, typed=False)
+def func(): ...
+```
 
 # python builtin-methods
 
@@ -248,6 +268,8 @@ created an iterator (is memory efficient) (using `reversed`) which reverse trave
 - `sum(iterable)` highly optimized for numerical elements, to add string use `"".join(iterable)`.
 - `pow(base, exp, mod=None)` alot faster than `base ** exp`.
 - `a // b` does the floor division.
+- `math.factorial` to compute factorial.
+
 ### but manupulation
 - Use `int.bit_length` to get the length of the number, useful to get most significant bit of an integer.
 - Use `int.bit_count` to get number of set bits.
@@ -263,13 +285,15 @@ created an iterator (is memory efficient) (using `reversed`) which reverse trave
 
 # Misc
 
-## Tips
+## Coding conventions
 
 - Type Boundaries, Infer Internals. 
     - You should almost always type hints for function arguments and return values.
     - Cases where you should type variables:
         - Empty Containers `users: list[str] = []` than `users = []`.
         - `Optional` types `best_score: int | None = None` than `best_score = None`.
+- variable naming.
+    - `x` is a variable declared then `x_new` is better than `new_x`.
 
 ## common foot guns:
 
@@ -278,6 +302,10 @@ created an iterator (is memory efficient) (using `reversed`) which reverse trave
 a = b = c = []
 a.append(1)
 print(a, b, c) # [1] [1] [1]
+
+a = [1, 2]
+b = a # shallow copy
+b = deepcopy(a) # from copy import deepcopy
 ```
 
 ## string to int and similar type conversion
